@@ -562,3 +562,13 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* Переключатель темы */
+.theme-switcher {
+    margin-left: 20px;
+}
+
+.theme-checkbox {
+    display: none;
+}
+
+... и так далее весь код ...
