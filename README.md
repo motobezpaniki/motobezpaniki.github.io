@@ -1,1 +1,1 @@
-![Uploading maslo.jpg…]()
+![maslo.jpg]()
