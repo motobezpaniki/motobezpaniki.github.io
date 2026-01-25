@@ -1,6 +1,76 @@
-// Базовый JavaScript для сайта
+// ========== ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ==========
 
+// Проверяем сохранённую тему или системные настройки
+function initTheme() {
+    const savedTheme = localStorage.getItem('motobezpaniki-theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').checked = true;
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.getElementById('themeToggle').checked = false;
+    }
+}
+
+// Переключение темы
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('change', function() {
+            // Создаём эффект перехода
+            const transition = document.createElement('div');
+            transition.className = 'theme-transition';
+            document.body.appendChild(transition);
+            
+            // Меняем тему после начала анимации
+            setTimeout(() => {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('motobezpaniki-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('motobezpaniki-theme', 'light');
+                }
+            }, 300);
+            
+            // Удаляем элемент анимации
+            setTimeout(() => {
+                if (transition.parentNode) {
+                    transition.parentNode.removeChild(transition);
+                }
+            }, 1000);
+        });
+    }
+}
+
+// Добавляем системное отслеживание изменения темы
+function watchSystemTheme() {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    mediaQuery.addEventListener('change', function(e) {
+        // Меняем тему только если пользователь не выбирал вручную
+        if (!localStorage.getItem('motobezpaniki-theme')) {
+            if (e.matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').checked = true;
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('themeToggle').checked = false;
+            }
+        }
+    });
+}
+
+// Базовый JavaScript для сайта
 document.addEventListener('DOMContentLoaded', function() {
+    // Инициализируем тему
+    initTheme();
+    setupThemeToggle();
+    watchSystemTheme();
+    
     // Мобильное меню
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -160,6 +230,44 @@ style.textContent = `
     section.animate-in {
         opacity: 1;
         transform: translateY(0);
+    }
+    
+    /* Эффект при переключении темы */
+    .theme-transition {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--calm-accent);
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        animation: themeSwitch 0.8s ease-out;
+    }
+    
+    @keyframes themeSwitch {
+        0% {
+            opacity: 0;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.3;
+            transform: scale(1.2);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(1.5);
+        }
+    }
+    
+    /* Плавные переходы для переключения темы */
+    body, .navbar, .section, .card, .feature, .maintenance-card,
+    .emergency-card, .footer, .btn, input, textarea, select {
+        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 `;
 document.head.appendChild(style);
