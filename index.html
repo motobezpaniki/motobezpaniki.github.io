@@ -1,58 +1,306 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>МотоБезПаники</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#111; color:#eee; }
-    header { background:#1c1c1c; padding:15px 20px; display:flex; align-items:center; justify-content:space-between; }
-    header h1 { margin:0; color:#f44336; font-size:24px; }
-    nav a { color:#ccc; margin-left:15px; text-decoration:none; font-weight:bold; }
-    nav a:hover { color:#f44336; }
-    .container { max-width:900px; margin:auto; padding:20px; }
-    .post { background:#1e1e1e; padding:15px; margin-bottom:15px; border-radius:8px; }
-    .post img { max-width:100%; border-radius:5px; display:block; margin-bottom:10px; }
-    .post h3 { margin-top:0; color:#f44336; }
-    footer { text-align:center; padding:15px; color:#777; font-size:14px; background:#111; }
-    .button { color:#f44336; text-decoration:none; font-weight:bold; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МотоБезПаники - Помощь в обслуживании мототехники без стресса</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Успокаивающие, но современные шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
 <body>
+    <!-- Навигация - спокойная, но чёткая -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-moto">Мото</span><span class="logo-bezpaniki">БезПаники</span>
+                <div class="logo-sub">нет стресса, есть решение</div>
+            </a>
+            
+            <div class="nav-right">
+                <ul class="nav-menu">
+                    <li><a href="#main" class="nav-link active"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="#beginners" class="nav-link"><i class="fas fa-user-graduate"></i> Новичкам</a></li>
+                    <li><a href="#owners" class="nav-link"><i class="fas fa-tools"></i> Владельцам</a></li>
+                    <li><a href="#guides" class="nav-link"><i class="fas fa-book"></i> Руководства</a></li>
+                    <li><a href="#emergency" class="nav-link emergency"><i class="fas fa-first-aid"></i> Скорая помощь</a></li>
+                </ul>
+                
+                <a href="ВАША_ССЫЛКА_НА_ТЕЛЕГРАМ" class="btn-telegram" target="_blank" title="Присоединяйтесь к нашему Telegram-каналу">
+                    <i class="fab fa-telegram"></i> Наш канал
+                </a>
+            </div>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-<header>
-  <h1>МотоБезПаники</h1>
-  <nav>
-    <a href="novichkam.html">Новичкам</a>
-    <a href="remont.html">Ремонт</a>
-    <a href="#">Покупка</a>
-    <a class="button" href="https://t.me/motobezpaniki" target="_blank">Telegram</a>
-  </nav>
-</header>
+    <!-- Hero-секция - успокаивающая, но мотивирующая -->
+    <section class="hero" id="main">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i> Без стресса
+                </div>
+                <h1 class="hero-title">
+                    Обслуживание мотоцикла <span class="highlight">без паники</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Понятные инструкции, проверенные решения и поддержка сообщества. 
+                    <strong>Всё, что нужно новичку и опытному владельцу.</strong>
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">понятных инструкций</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">ненужной сложности</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">поддержка в чате</span>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#beginners" class="btn btn-calm">
+                        <i class="fas fa-hand-holding-heart"></i> Я только начинаю
+                    </a>
+                    <a href="#owners" class="btn btn-confident">
+                        <i class="fas fa-user-check"></i> Уже езжу, но есть вопросы
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="visual-container">
+                    <div class="moto-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <div class="tool-icons">
+                        <i class="fas fa-wrench"></i>
+                        <i class="fas fa-oil-can"></i>
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="peace-icon">
+                        <i class="fas fa-peace"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="container">
-  <!-- Пример постов -->
-  <div class="post">
-    <h3>Бебебе</h3>
-    <p>Здесь будут ваши посты с фото и советами для новичков и мотоциклистов!</p>
-  </div>
+    <!-- Экстренная помощь - в духе названия -->
+    <section class="emergency-section" id="emergency">
+        <div class="container">
+            <div class="emergency-card">
+                <div class="emergency-icon">
+                    <i class="fas fa-first-aid"></i>
+                </div>
+                <div class="emergency-content">
+                    <h3>Мотопомощь срочно?</h3>
+                    <p>Не паникуйте! У нас есть чек-листы на самые частые проблемы</p>
+                    <div class="emergency-links">
+                        <a href="#emergency-start" class="emergency-link">
+                            <i class="fas fa-car-battery"></i> Не заводится
+                        </a>
+                        <a href="#emergency-oil" class="emergency-link">
+                            <i class="fas fa-oil-can"></i> Течёт масло
+                        </a>
+                        <a href="#emergency-chain" class="emergency-link">
+                            <i class="fas fa-link"></i> Звенит цепь
+                        </a>
+                        <a href="#emergency-brake" class="emergency-link">
+                            <i class="fas fa-stop-circle"></i> Слабые тормоза
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="post">
-    <h3>Пример поста с фото</h3>
-    <img src="https://via.placeholder.com/800x400?text=Мотоцикл+1" alt="Мотоцикл 1">
-    <p>Краткий совет или описание ситуации с мотоциклом.</p>
-  </div>
+    <!-- Для новичков - секция -->
+    <section class="section section-calm" id="beginners">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-user-friends"></i> Первые шаги без страха
+                </h2>
+                <p class="section-subtitle">Всё, что нужно знать перед первой поездкой и после</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon calm-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Выбор мотоцикла</h3>
+                    <p>Какой мотоцикл не испугает новичка. Тест на совместимость.</p>
+                    <a href="#" class="feature-link">Пройти тест →</a>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon calm-2">
+                        <i class="fas fa-helmet-safety"></i>
+                    </div>
+                    <h3>Безопасность прежде всего</h3>
+                    <p>Какая экипировка действительно защищает, а какая просто модная.</p>
+                    <a href="#" class="feature-link">Список must-have →</a>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon calm-3">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3>Первые 1000 км</h3>
+                    <p>Пошаговый план: от парковки до первой трассы. Без лишних рисков.</p>
+                    <a href="#" class="feature-link">План обучения →</a>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon calm-4">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Глупых вопросов нет</h3>
+                    <p>Ответы на всё, что стеснялись спросить. Анонимно можно в нашем чате.</p>
+                    <a href="#" class="feature-link">Задать вопрос →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="post">
-    <h3>Пример второго поста</h3>
-    <img src="https://via.placeholder.com/800x400?text=Мотоцикл+2" alt="Мотоцикл 2">
-    <p>Можно добавить ссылку на статью или другой полезный материал.</p>
-  </div>
-</div>
+    <!-- Для владельцев -->
+    <section class="section section-confident" id="owners">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-user-cog"></i> Уверенное обслуживание
+                </h2>
+                <p class="section-subtitle">Регулярный уход, а не экстренный ремонт</p>
+            </div>
+            
+            <div class="maintenance-cards">
+                <div class="maintenance-card">
+                    <div class="maintenance-header">
+                        <h3>Еженедельный чек</h3>
+                        <span class="time">15 минут</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check-circle"></i> Давление в шинах</li>
+                        <li><i class="fas fa-check-circle"></i> Уровень масла</li>
+                        <li><i class="fas fa-check-circle"></i> Натяжение цепи</li>
+                        <li><i class="fas fa-check-circle"></i> Тормозные колодки</li>
+                    </ul>
+                    <button class="btn-checklist">Скачать чек-лист</button>
+                </div>
+                
+                <div class="maintenance-card">
+                    <div class="maintenance-header">
+                        <h3>Сезонная подготовка</h3>
+                        <span class="time">1-2 дня</span>
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-snowflake"></i> Консервация на зиму</li>
+                        <li><i class="fas fa-sun"></i> Подготовка к сезону</li>
+                        <li><i class="fas fa-tint"></i> Замена жидкостей</li>
+                        <li><i class="fas fa-battery-full"></i> Обслуживание аккумулятора</li>
+                    </ul>
+                    <button class="btn-checklist">Календарь работ</button>
+                </div>
+                
+                <div class="maintenance-card highlight-card">
+                    <div class="maintenance-header">
+                        <h3>Диагностика проблем</h3>
+                        <span class="time">Определяем за 10 минут</span>
+                    </div>
+                    <p>Не понимаете, что стучит, скрипит или не работает?</p>
+                    <div class="diagnostic">
+                        <input type="text" placeholder="Опишите симптом...">
+                        <button class="btn-diagnostic">
+                            <i class="fas fa-search"></i> Найти решение
+                        </button>
+                    </div>
+                    <small>ИИ подскажет возможные причины</small>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer>
-  © 2026 МотоБезПаники
-</footer>
+    <!-- CTA для Telegram -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-icon">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <div class="cta-content">
+                    <h3>Присоединяйтесь к мотосемье без паники</h3>
+                    <p>Ежедневные советы, ответы на вопросы, поддержка и общение без токсичности</p>
+                    <a href="ВАША_ССЫЛКА_НА_ТЕЛЕГРАМ" class="btn-cta" target="_blank">
+                        <i class="fab fa-telegram"></i> Подписаться на канал
+                    </a>
+                    <p class="cta-note"><i class="fas fa-lock"></i> Без спама, только полезное</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-footer">МотоБезПаники</div>
+                    <p>Помогаем с мототехникой с 2023 года</p>
+                    <div class="footer-social">
+                        <a href="ВАША_ССЫЛКА_НА_ТЕЛЕГРАМ" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="VK"><i class="fab fa-vk"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://github.com/ВАШ_АККАУНТ/motobezpaniki" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Обучение</h4>
+                        <a href="#">С нуля</a>
+                        <a href="#">Экипировка</a>
+                        <a href="#">Безопасность</a>
+                        <a href="#">ПДД для мото</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Обслуживание</h4>
+                        <a href="#">Чек-листы</a>
+                        <a href="#">DIY инструкции</a>
+                        <a href="#">Диагностика</a>
+                        <a href="#">Инструменты</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Сообщество</h4>
+                        <a href="ВАША_ССЫЛКА_НА_ТЕЛЕГРАМ">Telegram-канал</a>
+                        <a href="#">Вопрос-ответ</a>
+                        <a href="#">Истории</a>
+                        <a href="#">Встречи</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 МотоБезПаники. Сделано с <i class="fas fa-heart"></i> для мотосообщества.</p>
+                <p>Все инструкции проверены на практике. Консультируйтесь со специалистами в сложных случаях.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
