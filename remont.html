@@ -10,8 +10,15 @@
     header h1 { margin:0; color:#f44336; font-size:24px; }
     nav a { color:#ccc; margin-left:15px; text-decoration:none; font-weight:bold; }
     nav a:hover { color:#f44336; }
-    .container { max-width:900px; margin:auto; padding:20px; }
-    footer { text-align:center; padding:15px; color:#777; font-size:14px; background:#111; }
+    .container { max-width:900px; margin:auto; padding:20px; display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px; }
+    .card { background:#1e1e1e; border-radius:10px; overflow:hidden; transition: transform 0.2s; }
+    .card:hover { transform: scale(1.02); }
+    .card img { width:100%; display:block; }
+    .card-content { padding:15px; }
+    .card-content h3 { margin:0 0 10px 0; color:#f44336; }
+    .card-content p { margin:0; font-size:14px; color:#ccc; }
+    footer { text-align:center; padding:15px; color:#777; font-size:14px; background:#111; margin-top:20px; }
+    a.button { text-decoration:none; color:#f44336; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -27,13 +34,32 @@
 </header>
 
 <div class="container">
-  <div class="post">
-  <h3>Как правильно зарядить аккумулятор мотоцикла</h3>
-  <img src="https://via.placeholder.com/800x400?text=Аккумулятор" alt="Аккумулятор мотоцикла">
-  <p>Подключаем зарядное устройство к аккумулятору, следим за полярностью и временем зарядки. Никогда не оставляйте на ночь без контроля.</p>
-</div>
-  <h2>Ремонт и обслуживание</h2>
-  <p>Здесь будут статьи и инструкции по ремонту мотоциклов.</p>
+  <!-- Карточка поста 1 -->
+  <div class="card">
+    <img src="https://via.placeholder.com/400x250?text=Замена+масла" alt="Замена масла">
+    <div class="card-content">
+      <h3>Замена масла в мотоцикле</h3>
+      <p>Пошаговое руководство по замене масла, чтобы двигатель работал долго и надежно.</p>
+    </div>
+  </div>
+
+  <!-- Карточка поста 2 -->
+  <div class="card">
+    <img src="https://via.placeholder.com/400x250?text=Цепь+и+звезды" alt="Цепь и звезды">
+    <div class="card-content">
+      <h3>Обслуживание цепи и звезд</h3>
+      <p>Как правильно натянуть цепь и смазывать ее для долгой службы.</p>
+    </div>
+  </div>
+
+  <!-- Карточка поста 3 -->
+  <div class="card">
+    <img src="https://via.placeholder.com/400x250?text=Свечи+зажигания" alt="Свечи зажигания">
+    <div class="card-content">
+      <h3>Свечи зажигания: проверка и замена</h3>
+      <p>Как проверить состояние свечей и заменить их самостоятельно.</p>
+    </div>
+  </div>
 </div>
 
 <footer>
