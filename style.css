@@ -571,4 +571,170 @@ body {
     display: none;
 }
 
-... и так далее весь код ...
+/* Стили для новых карточек с эффектом */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature-card-hover {
+    background: var(--calm-white);
+    border: 2px solid #eef2ff; /* Светлая рамка */
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+/* Эффект при наведении */
+.feature-card-hover:hover {
+    transform: scale(1.05); /* Увеличение на 5% */
+    box-shadow: var(--shadow-medium);
+    border-color: var(--calm-blue); /* Рамка становится синей */
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--calm-blue);
+    margin-bottom: 20px;
+}
+
+.feature-card-hover h3 {
+    margin-bottom: 15px;
+    color: var(--calm-dark);
+}
+
+.feature-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--calm-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Блок ссылки в Телеграм */
+.questions-invite {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background: rgba(67, 97, 238, 0.05);
+    border-radius: 15px;
+}
+
+.tg-link {
+    color: var(--calm-blue);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.tg-link:hover {
+    text-decoration: underline;
+}
+
+/* Поддержка темной темы (если есть) */
+[data-theme="dark"] .feature-card-hover {
+    background: #1e1e1e;
+    border-color: #333;
+}
+
+/* Рамки и общий вид карточек */
+.feature-card-hover {
+    background: var(--calm-white);
+    border: 2px solid #eef2ff; /* Та самая рамка */
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Эффект увеличения при наведении */
+.feature-card-hover:hover {
+    transform: scale(1.05); /* Легкое увеличение */
+    box-shadow: var(--shadow-medium);
+    border-color: var(--calm-blue); /* Подсветка рамки синим */
+}
+
+/* Иконки внутри карточек */
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--calm-blue);
+    margin-bottom: 20px;
+}
+/* ПОЛНАЯ СИНХРОНИЗАЦИЯ: И ВНУТРИ И СНАРУЖИ ОДИН ЦВЕТ */
+
+/* --- СВЕТЛАЯ ТЕМА --- */
+html[data-theme="light"] #emergency {
+    background-color: #ffffff !important; /* Белый фон вокруг */
+}
+
+html[data-theme="light"] .emergency-card {
+    background-color: #ffffff !important; /* Белый фон внутри */
+    border: 2px solid #eef2ff !important; /* Светлая рамка */
+}
+
+html[data-theme="light"] .emergency-card h3,
+html[data-theme="light"] .emergency-card p {
+    color: #2d3436 !important; /* Темный текст */
+}
+/* ПОЛНОЕ УДАЛЕНИЕ БЕЛОГО ФОНА НОЧЬЮ */
+
+/* ЯДЕРНЫЙ ФИКС: ПРИНУДИТЕЛЬНОЕ УПРАВЛЕНИЕ ФОНОМ */
+
+/* 1. ТЕМНАЯ ТЕМА (NIGHT MODE) */
+/* Используем html + body + id, чтобы вес был максимальным */
+html[data-theme="dark"] body #emergency,
+html[data-theme="dark"] body .emergency-section {
+    background-color: #121212 !important;
+    background: #121212 !important;
+    box-shadow: none !important; /* Убираем любые светлые тени */
+}
+
+/* Внутренняя карточка ночью */
+html[data-theme="dark"] body #emergency .emergency-card {
+    background-color: #1a1c1e !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+/* Текст ночью */
+html[data-theme="dark"] body #emergency * {
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.1);
+}
+
+
+/* 2. СВЕТЛАЯ ТЕМА (DAY MODE) */
+html[data-theme="light"] body #emergency,
+html[data-theme="light"] body .emergency-section {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Внутренняя карточка днем */
+html[data-theme="light"] body #emergency .emergency-card {
+    background-color: #ffffff !important;
+    border: 2px solid #eef2ff !important;
+}
+/* Текст днем */
+html[data-theme="light"] body #emergency h3,
+html[data-theme="light"] body #emergency p {
+    color: #2d3436 !important;
+}
+
+
+/* 3. ОБЩИЕ НАСТРОЙКИ (АНИМАЦИЯ) */
+#emergency .emergency-card {
+    border-radius: 24px;
+    padding: 40px;
+    transition: all 0.3s ease-in-out !important;
+}
+#emergency .emergency-card:hover {
+    transform: scale(1.02);
+    border-color: #4361ee !important;
+}
