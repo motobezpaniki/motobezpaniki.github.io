@@ -1,381 +1,265 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест: Какой мотоцикл вам подходит? | МотоБезПаники</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <style>
-        /* Специальные стили для теста */
-        .test-progress {
-            background: linear-gradient(135deg, #4361ee, #4cc9f0);
-            height: 4px;
-            border-radius: 2px;
-            margin: 30px 0;
-            transition: width 0.5s ease;
-        }
-        
-        .question-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(67, 97, 238, 0.15);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        [data-theme="dark"] .question-card {
-            background: #252525;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .question-number {
-            display: inline-block;
-            background: #4361ee;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            line-height: 36px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .question-text {
-            font-family: 'Exo 2', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 30px;
-            color: #2b2d42;
-        }
-        
-        [data-theme="dark"] .question-text {
-            color: #f8f9fa;
-        }
-        
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .option-card {
-            background: #f8f9fa;
-            border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 25px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        [data-theme="dark"] .option-card {
-            background: #333;
-            color: #e9ecef;
-        }
-        
-        .option-card:hover {
-            transform: translateY(-5px);
-            border-color: #4361ee;
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
-        }
-        
-        .option-card.selected {
-            background: linear-gradient(135deg, #4361ee, #4cc9f0);
-            color: white;
-            border-color: #4361ee;
-        }
-        
-        .option-icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-            color: #4361ee;
-        }
-        
-        .option-card.selected .option-icon {
-            color: white;
-        }
-        
-        .option-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .test-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 40px;
-        }
-        
-        .btn-test {
-            background: linear-gradient(135deg, #4361ee, #4cc9f0);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-test:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-        }
-        
-        .btn-test:disabled {
-            background: #adb5bd;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .result-screen {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-        
-        .result-icon {
-            font-size: 80px;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .result-title {
-            font-family: 'Exo 2', sans-serif;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #2b2d42;
-        }
-        
-        [data-theme="dark"] .result-title {
-            color: #f8f9fa;
-        }
-        
-        .result-moto {
-            font-size: 28px;
-            color: #7209b7;
-            font-weight: 700;
-            margin: 20px 0;
-        }
-        
-        .result-details {
-            max-width: 600px;
-            margin: 30px auto;
-            text-align: left;
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-        }
-        
-        [data-theme="dark"] .result-details {
-            background: #333;
-            color: #e9ecef;
-        }
-        
-        .result-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        
-        [data-theme="dark"] .feature-item {
-            background: #333;
-        }
-        
-        .restart-test {
-            margin-top: 30px;
-            display: inline-block;
-            color: #4361ee;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-        }
-        
-        .test-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .test-title {
-            font-family: 'Exo 2', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #2b2d42;
-        }
-        
-        [data-theme="dark"] .test-title {
-            color: #f8f9fa;
-        }
-        
-        .test-description {
-            font-size: 18px;
-            color: #6c757d;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        @media (max-width: 768px) {
-            .question-card {
-                padding: 25px 20px;
-            }
-            
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .test-title {
-                font-size: 28px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Навигация (как на главной) -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-moto">Мото</span><span class="logo-bezpaniki">БезПаники</span>
-                <div class="logo-sub">нет стресса, есть решение</div>
-            </a>
-            
-            <div class="nav-right">
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a></li>
-                    <li><a href="index.html#beginners" class="nav-link"><i class="fas fa-user-graduate"></i> Новичкам</a></li>
-                    <li><a href="index.html#owners" class="nav-link"><i class="fas fa-tools"></i> Владельцам</a></li>
-                    <li><a href="index.html#emergency" class="nav-link emergency"><i class="fas fa-first-aid"></i> Скорая помощь</a></li>
-                </ul>
-                
-                <div class="theme-switcher">
-                    <input type="checkbox" id="themeToggle" class="theme-checkbox">
-                    <label for="themeToggle" class="theme-label" title="Переключить тему">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                        <span class="theme-ball"></span>
-                    </label>
-                </div>
-                
-                <a href="https://t.me/ваш_канал" class="btn-telegram" target="_blank" title="Присоединяйтесь к нашему Telegram-каналу">
-                    <i class="fab fa-telegram"></i> Наш канал
-                </a>
-            </div>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+// ========== ДАННЫЕ: ТИПЫ МОТОЦИКЛОВ ==========
+const motorcycleTypes = {
+    motorcycle: {
+        name: "Городской Нейкед / Стрит",
+        description: "Универсальный городской боец. Минимум пластика и отличная маневренность. Создан для тех, кто хочет эффективно перемещаться в пробках и любит современный стиль.",
+        power: "От 15 до 120 л.с.",
+        whyGood: "Максимальный контроль и чувство габаритов. Это самый популярный тип для обучения и первого сезона в городе.",
+        attention: "Почти нет ветрозащиты — на трассе после 110 км/ч будет некомфортно.",
+        // Базовый список (для неограниченного бюджета)
+        examples: ["Yamaha MT-07", "KTM Duke 390", "Honda CB650R", "Kawasaki Z400", "BMW G310R"]
+    },
+    cruiser: {
+        name: "Круизер / Чоппер",
+        description: "Стиль, комфорт и низкая посадка. Мотоцикл для тех, кто никуда не спешит и ценит эстетику железных коней.",
+        power: "От 20 до 100 л.с.",
+        whyGood: "Низкое сиденье позволяет уверенно стоять ногами на земле. Это дает чувство безопасности новичкам и людям невысокого роста.",
+        attention: "Большой вес и маневренность «как у баржи». В узких дворах его сложно разворачивать.",
+        examples: ["Honda Rebel 500", "Kawasaki Vulcan S", "Harley-Davidson Iron 883", "Indian Scout"]
+    },
+    adventure: {
+        name: "Тур-эндуро / Внедорожный",
+        description: "Вездеход. Высокая подвеска позволяет не замечать ямы и бордюры. Идеален для путешествий и плохих дорог.",
+        power: "От 12 до 150 л.с.",
+        whyGood: "Прямая спина и высокая посадка. Вы видите ситуацию на дороге поверх крыш автомобилей.",
+        attention: "Очень высокие мотоциклы. Если рост ниже 175 см, будет сложно доставать до земли.",
+        examples: ["BMW F850GS", "Honda Africa Twin", "Suzuki V-Strom", "Yamaha Tenere 700"]
+    },
+    classic: {
+        name: "Классика и Легкие дорожники",
+        description: "Простые, надежные и понятные байки. В этот же сегмент входят питбайки для тех, кто начинает путь с внедорожного фана.",
+        power: "От 8 до 70 л.с.",
+        whyGood: "Дешевое обслуживание и запчасти. Прощает ошибки в управлении и стоит дешевле всех остальных типов.",
+        attention: "Минимум технологий. На бюджетных моделях редко встретишь ABS или трекшн-контроль.",
+        examples: ["Triumph Bonneville", "Royal Enfield Interceptor", "Yamaha SR400"]
+    }
+};
 
-    <!-- Контейнер теста -->
-    <div class="container">
-        <div class="test-header">
-            <h1 class="test-title">Тест: Какой мотоцикл вам подходит?</h1>
-            <p class="test-description">Ответьте на 7 вопросов, и мы подберём оптимальный вариант для вашего старта в мире мото</p>
-        </div>
-        
-        <!-- Прогресс-бар -->
-        <div class="test-progress" id="progressBar" style="width: 14%;"></div>
-        
-        <!-- Экран с вопросами -->
-        <div id="questionScreen">
-            <div class="question-card" id="questionCard">
-                <!-- Вопросы будут добавляться через JavaScript -->
-            </div>
-            
-            <div class="test-navigation">
-                <button class="btn-test" id="prevBtn" disabled>
-                    <i class="fas fa-arrow-left"></i> Назад
-                </button>
-                
-                <div class="question-counter">
-                    Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">7</span>
-                </div>
-                
-                <button class="btn-test" id="nextBtn">
-                    Далее <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Экран с результатом -->
-        <div class="result-screen" id="resultScreen">
-            <div class="question-card">
-                <div class="result-icon">
-                    <i class="fas fa-motorcycle"></i>
-                </div>
-                
-                <h2 class="result-title">Ваш результат:</h2>
-                <div class="result-moto" id="resultMotoName">Классик / Нейкед</div>
-                
-                <div class="result-details">
-                    <p id="resultDescription">Идеальный вариант для первого знакомства с миром мото. Управляется интуитивно, комфортен в городе и на трассе.</p>
-                    
-                    <h3>Почему это хороший выбор:</h3>
-                    <ul id="resultAdvantages">
-                        <!-- Преимущества загрузятся через JS -->
-                    </ul>
-                    
-                    <h3>На что обратить внимание:</h3>
-                    <ul id="resultConsiderations">
-                        <!-- Рекомендации загрузятся через JS -->
-                    </ul>
-                </div>
-                
-                <div class="result-features" id="resultFeatures">
-                    <!-- Характеристики загрузятся через JS -->
-                </div>
-                
-                <div class="test-navigation">
-                    <button class="btn-test" onclick="restartTest()">
-                        <i class="fas fa-redo"></i> Пройти тест снова
-                    </button>
-                    
-                    <a href="index.html#beginners" class="btn-test">
-                        <i class="fas fa-home"></i> На главную
-                    </a>
-                </div>
-                
-                <p style="margin-top: 20px; color: #6c757d;">
-                    Поделитесь результатом: 
-                    <a href="#" onclick="shareResult()" style="color: #4361ee; margin: 0 10px;"><i class="fab fa-telegram"></i></a>
-                    <a href="#" onclick="shareResult()" style="color: #4361ee; margin: 0 10px;"><i class="fab fa-vk"></i></a>
-                </p>
-            </div>
-        </div>
-    </div>
+// ========== ВОПРОСЫ ТЕСТА ==========
+const testQuestions = [
+    {
+        id: 1,
+        question: "Какой у вас опыт вождения?",
+        options: [
+            { text: "Ноль, только начинаю", icon: "fas fa-baby", value: "beginner", scores: { classic: 5, motorcycle: 3, cruiser: 2, adventure: 1 } },
+            { text: "Ездил(а) на скутере/мопеде", icon: "fas fa-motorcycle", value: "scooter", scores: { classic: 2, motorcycle: 5, cruiser: 1, adventure: 3 } },
+            { text: "Есть опыт вождения авто", icon: "fas fa-car", value: "car", scores: { classic: 3, motorcycle: 2, cruiser: 5, adventure: 2 } },
+            { text: "Уже ездил(а) на мотоцикле", icon: "fas fa-tachometer-alt", value: "pro", scores: { adventure: 5, motorcycle: 4, classic: 1, cruiser: 2 } }
+        ]
+    },
+    {
+        id: 2,
+        question: "Где планируете ездить чаще всего?",
+        options: [
+            { text: "В городе, по делам", icon: "fas fa-city", value: "city", scores: { motorcycle: 5, classic: 4, cruiser: 2, adventure: 1 } },
+            { text: "Загородные трассы", icon: "fas fa-road", value: "highway", scores: { cruiser: 5, adventure: 4, motorcycle: 2, classic: 1 } },
+            { text: "Лес, поля, бездорожье", icon: "fas fa-tree", value: "offroad", scores: { adventure: 5, classic: 3, motorcycle: 0, cruiser: 0 } },
+            { text: "Везде понемногу", icon: "fas fa-exchange-alt", value: "mixed", scores: { adventure: 4, motorcycle: 4, classic: 3, cruiser: 2 } }
+        ]
+    },
+    {
+        id: 3,
+        question: "Какой стиль езды вам ближе?",
+        options: [
+            { text: "Спокойный", icon: "fas fa-peace", value: "relaxed", scores: { cruiser: 5, classic: 4, adventure: 2, motorcycle: 1 } },
+            { text: "Динамичный", icon: "fas fa-running", value: "active", scores: { motorcycle: 5, adventure: 3, classic: 1, cruiser: 1 } },
+            { text: "Практичный", icon: "fas fa-user-check", value: "practical", scores: { classic: 5, adventure: 4, motorcycle: 3, cruiser: 2 } },
+            { text: "Экстремальный", icon: "fas fa-fire", value: "explorer", scores: { adventure: 5, motorcycle: 3, classic: 2, cruiser: 1 } }
+        ]
+    },
+    {
+        id: 4,
+        question: "Ваш рост?",
+        options: [
+            { text: "До 170 см", icon: "fas fa-arrow-down", value: "short", scores: { cruiser: 5, motorcycle: 4, classic: 4, adventure: 1 } },
+            { text: "170-185 см", icon: "fas fa-arrows-alt-h", value: "medium", scores: { motorcycle: 5, classic: 5, adventure: 4, cruiser: 4 } },
+            { text: "Выше 185 см", icon: "fas fa-arrow-up", value: "tall", scores: { adventure: 5, cruiser: 2, classic: 2, motorcycle: 1 } }
+        ]
+    },
+    {
+        id: 5,
+        question: "Какой бюджет на покупку?",
+        options: [
+            { text: "До 80 000 руб", icon: "fas fa-wallet", value: "ultra-low", scores: { classic: 5, adventure: 3, motorcycle: 0, cruiser: 0 } },
+            { text: "До 150 000 руб", icon: "fas fa-money-bill", value: "low", scores: { classic: 5, motorcycle: 4, adventure: 4, cruiser: 2 } },
+            { text: "До 350 000 руб", icon: "fas fa-credit-card", value: "medium", scores: { motorcycle: 5, adventure: 5, cruiser: 5, classic: 2 } },
+            { text: "Не ограничен", icon: "fas fa-crown", value: "unlimited", scores: { motorcycle: 5, adventure: 5, cruiser: 5, classic: 1 } }
+        ]
+    },
+    {
+        id: 6,
+        question: "Что важнее всего?",
+        options: [
+            { text: "Комфорт", icon: "fas fa-couch", value: "comfort", scores: { cruiser: 5, adventure: 4, classic: 3, motorcycle: 1 } },
+            { text: "Управляемость", icon: "fas fa-bullseye", value: "handling", scores: { motorcycle: 5, classic: 2, adventure: 2, cruiser: 1 } },
+            { text: "Проходимость", icon: "fas fa-mountain", value: "offroad", scores: { adventure: 5, classic: 3, motorcycle: 0, cruiser: 0 } }
+        ]
+    },
+    {
+        id: 7,
+        question: "Насколько важна экономичность?",
+        options: [
+            { text: "Очень важна", icon: "fas fa-gas-pump", value: "eco", scores: { classic: 5, motorcycle: 4, adventure: 3, cruiser: 1 } },
+            { text: "Не критично", icon: "fas fa-filter", value: "mid", scores: { motorcycle: 4, adventure: 4, cruiser: 4, classic: 2 } },
+            { text: "Хочу максимум эмоций", icon: "fas fa-gem", value: "power", scores: { motorcycle: 5, adventure: 5, cruiser: 5, classic: 0 } }
+        ]
+    }
+];
 
-    <!-- Подключаем общий скрипт и скрипт теста -->
-    <script src="script.js"></script>
-    <script src="test.js"></script>
+// ========== ЛОГИКА ТЕСТА ==========
+let currentQuestion = 0;
+let userAnswers = [];
+let userScores = { classic: 0, cruiser: 0, motorcycle: 0, adventure: 0 };
+
+function initTest() {
+    showQuestion(currentQuestion);
+}
+
+function showQuestion(index) {
+    const question = testQuestions[index];
+    const questionCard = document.getElementById('questionCard');
     
-    <script>
-        // Временный скрипт для работы теста, пока не создан test.js
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Тест загружен');
-        });
-    </script>
-</body>
-</html>
+    let optionsHTML = '';
+    question.options.forEach((option, i) => {
+        const isSelected = userAnswers[index] === option.value;
+        optionsHTML += `
+            <div class="option-card ${isSelected ? 'selected' : ''}" onclick="selectOption(${index}, ${i})">
+                <div class="option-icon"><i class="${option.icon}"></i></div>
+                <div class="option-title">${option.text}</div>
+            </div>`;
+    });
+    
+    questionCard.innerHTML = `
+        <div class="question-number">${question.id}</div>
+        <h2 class="question-text">${question.question}</h2>
+        <div class="options-grid">${optionsHTML}</div>`;
+    
+    document.getElementById('currentQuestion').textContent = question.id;
+    document.getElementById('totalQuestions').textContent = testQuestions.length;
+    
+    const progress = ((currentQuestion + 1) / testQuestions.length) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
+    
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.disabled = userAnswers[currentQuestion] === undefined;
+    nextBtn.innerHTML = currentQuestion === testQuestions.length - 1 ? 'Узнать результат' : 'Далее';
+}
+
+function selectOption(qIdx, optIdx) {
+    userAnswers[qIdx] = testQuestions[qIdx].options[optIdx].value;
+    
+    // Пересчет очков
+    userScores = { classic: 0, cruiser: 0, motorcycle: 0, adventure: 0 };
+    userAnswers.forEach((ans, idx) => {
+        const opt = testQuestions[idx].options.find(o => o.value === ans);
+        for (let type in opt.scores) userScores[type] += opt.scores[type];
+    });
+
+    showQuestion(qIdx);
+}
+
+function nextQuestion() {
+    if (currentQuestion < testQuestions.length - 1) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+    } else {
+        showResult();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+    }
+}
+
+// ========== ФИНАЛЬНЫЙ РЕЗУЛЬТАТ С ЖЕСТКИМ ФИЛЬТРОМ ЦЕНЫ ==========
+function showResult() {
+    let maxScore = 0;
+    let resultKey = 'classic';
+    
+    for (let type in userScores) {
+        if (userScores[type] > maxScore) {
+            maxScore = userScores[type];
+            resultKey = type;
+        }
+    }
+
+    const budget = userAnswers[4]; 
+    const result = motorcycleTypes[resultKey];
+
+    // КОРРЕКТИРОВКА РЕКОМЕНДАЦИЙ ПО БЮДЖЕТУ
+    let finalExamples = [];
+    let budgetLabel = "";
+
+    if (budget === 'ultra-low') { 
+        budgetLabel = "до 80 000 руб";
+        finalExamples = ["Питбайки Kayo/BSE/Motoland", "Alpha 125cc", "Bajaj Boxer 150 (БУ)", "Racer Magnum", "ЗиД 250"];
+    } else if (budget === 'low') {
+        budgetLabel = "до 150 000 руб";
+        finalExamples = ["Yamaha YBR 125 (БУ)", "Bajaj Boxer 150 (Новый)", "Stels Flame 200", "Motoland XR250", "Lifan LF200"];
+    } else if (budget === 'medium') {
+        budgetLabel = "до 350 000 руб";
+        finalExamples = ["CFMOTO 250NK", "Bajaj Dominar 400 (БУ)", "KTM Duke 200", "Honda CB400 SF (БУ)", "Voge 300AC"];
+    } else {
+        budgetLabel = "не ограничен";
+        finalExamples = result.examples; // Показываем топ-модели из объекта
+    }
+
+    document.getElementById('questionScreen').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    
+    document.getElementById('resultMotoName').textContent = result.name;
+    document.getElementById('resultDescription').textContent = result.description;
+    
+    const container = document.getElementById('resultFeatures');
+    container.innerHTML = `
+        <div style="text-align: left; margin-top: 20px;">
+            <div style="background: rgba(67, 97, 238, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #4361ee; margin-bottom: 20px;">
+                <h4 style="margin-top: 0; color: #4361ee;"><i class="fas fa-check-circle"></i> Почему это ваш выбор:</h4>
+                <p style="margin-bottom: 0; font-size: 0.95rem;">${result.whyGood}</p>
+            </div>
+            
+            <div style="background: rgba(255, 159, 64, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #ff9f40; margin-bottom: 20px;">
+                <h4 style="margin-top: 0; color: #ff9f40;"><i class="fas fa-exclamation-triangle"></i> На что обратить внимание:</h4>
+                <p style="margin-bottom: 0; font-size: 0.95rem;">${result.attention}</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="background: var(--card-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="opacity: 0.6;">Типичная мощность</small>
+                    <div style="font-weight: bold;">${result.power}</div>
+                </div>
+                <div style="background: var(--card-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="opacity: 0.6;">Выбранный бюджет</small>
+                    <div style="font-weight: bold; color: #4361ee;">${budgetLabel}</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 20px; background: #fff; border: 2px solid #4361ee; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h4 style="margin-top: 0; color: #4361ee; display: flex; align-items: center;">
+                   <i class="fas fa-motorcycle" style="margin-right: 10px;"></i> Подходящие модели:
+                </h4>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #333; margin-bottom: 5px;">${finalExamples.join(', ')}</p>
+                <small style="color: #888;">* Мы подобрали эти модели с учетом ваших финансовых возможностей.</small>
+            </div>
+        </div>
+    `;
+}
+
+function restartTest() {
+    currentQuestion = 0;
+    userAnswers = [];
+    userScores = { classic: 0, cruiser: 0, motorcycle: 0, adventure: 0 };
+    document.getElementById('questionScreen').style.display = 'block';
+    document.getElementById('resultScreen').style.display = 'none';
+    initTest();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initTest();
+    document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+    document.getElementById('prevBtn').addEventListener('click', prevQuestion);
+});
