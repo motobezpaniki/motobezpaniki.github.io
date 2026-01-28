@@ -25,8 +25,60 @@
     --gradient-calm: linear-gradient(135deg, #4361ee, #4cc9f0);
     --gradient-confident: linear-gradient(135deg, #7209b7, #f72585);
 }
+/* Устанавливаем темный фон по умолчанию для всего документа */
+html, body {
+    background-color: #121212; /* Цвет твоей темной темы */
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
 
-body {
+/* Если тема явно указана как светлая, переопределяем */
+html[data-theme="light"] body {
+    background-color: var(--calm-light);
+    color: var(--calm-dark);
+}
+
+.logo {
+    text-decoration: none;
+    display: flex !important; /* Включаем гибкий контейнер */
+    flex-direction: column !important; /* Элементы строго в колонку */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px 0; /* Увеличиваем зону логотипа, чтобы ничего не наезжало */
+    height: auto !important; /* Позволяем логотипу самому определять высоту */
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px !important; /* КРИТИЧЕСКИЙ ОТСТУП: отодвигает название от слогана */
+    line-height: 1;
+}
+
+.logo-text {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    font-style: italic;
+    padding-right: 15px; /* Запас для наклоненной буквы 'И' */
+    white-space: nowrap;
+}
+
+.logo-sub {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px; 
+    color: var(--calm-gray);
+    
+    /* Сдвигаем надпись физически ниже, если марджины не слушаются */
+    transform: translateY(5px); 
+    
+    display: block !important;
+    font-weight: 700;
+    opacity: 0.8;
+    white-space: nowrap;
+}body {
     font-family: 'Nunito', sans-serif;
     color: var(--calm-dark);
     background-color: var(--calm-light);
@@ -57,39 +109,86 @@ body {
     align-items: center;
 }
 
+/* --- КОМПАКТНЫЙ ЛОГОТИП --- */
 .logo {
     text-decoration: none;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start;
+    line-height: 1; /* Убирает лишнее пространство между строками */
+    padding: 5px 0;
+}
+
+.logo-wrapper {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0 !important; /* УБИРАЕМ ПРОБЕЛ ПОД НАЗВАНИЕМ */
+    padding-bottom: 0 !important;
 }
 
-.logo-moto {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 700;
-    font-size: 28px;
-    color: var(--calm-dark);
-}
-
-.logo-bezpaniki {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 700;
-    font-size: 28px;
+.logo-icon {
+    font-size: 1.3rem; /* Уменьшенная иконка */
     color: var(--calm-blue);
+    transform: rotate(-10deg);
+}
+
+.logo-text {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem; /* УМЕНЬШЕННЫЙ ШРИФТ (был 1.8) */
+    font-style: italic;
+    padding-right: 5px; /* Минимальный запас для буквы 'И' */
+    letter-spacing: -0.5px;
+    white-space: nowrap;
 }
 
 .logo-sub {
-    font-size: 12px;
+    font-size: 0.6rem; /* Совсем маленький шрифт для слогана */
+    text-transform: uppercase;
+    letter-spacing: 1.5px; 
     color: var(--calm-gray);
-    margin-top: -5px;
-    font-weight: 300;
+    
+    /* ФИКС: МАКСИМАЛЬНО ПРИЖИМАЕМ КВЕРХУ */
+    margin-top: -2px !important; 
+    padding-top: 0 !important;
+    
+    display: block !important;
+    font-weight: 700;
+    opacity: 0.8;
+    white-space: nowrap;
 }
-
+/* 1. Контейнер для правой части меню */
 .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+    display: flex !important;
+    flex-direction: row !important; /* Строго в ряд */
+    align-items: center !important;
+    gap: 12px; /* Расстояние между всеми элементами (ссылками, кнопкой, темой) */
+    flex-wrap: nowrap !important; /* ЗАПРЕТ ПЕРЕНОСА на новую строку */
 }
 
+/* 2. Сами ссылки в навигации (если они у тебя просто теги <a>) */
+.nav-right a {
+    white-space: nowrap; /* Чтобы текст ссылки не дробился */
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+/* 3. ФИКС КНОПКИ "Скорая помощь" */
+.btn-emergency {
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px !important; /* Уменьшаем внутренние отступы */
+    font-size: 0.85rem !important; /* Чуть меньше шрифт, чтобы влезло */
+    flex-shrink: 0; /* Запрещаем кнопке сжиматься */
+}
+
+/* 4. Если иконка в кнопке слишком большая, уменьшим её */
+.btn-emergency i {
+    font-size: 0.8rem;
+}
 .nav-menu {
     display: flex;
     list-style: none;
@@ -928,4 +1027,13 @@ input:checked + .slider:before {
 /* Эффект свечения при наведении */
 .theme-switch:hover .slider {
     box-shadow: 0 0 8px rgba(67, 97, 238, 0.3);
+}
+
+.btn-emergency {
+    white-space: nowrap !important; /* ГАРАНТИРУЕТ один ряд */
+    padding: 8px 15px !important;   /* Делаем кнопку чуть уже */
+    font-size: 0.9rem !important;   /* Слегка уменьшаем шрифт под стать логотипу */
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
 }
