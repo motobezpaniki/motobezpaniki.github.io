@@ -738,3 +738,115 @@ html[data-theme="light"] body #emergency p {
     transform: scale(1.02);
     border-color: #4361ee !important;
 }
+
+/* --- Стили для красивой панели Telegram --- */
+.tg-promo-section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tg-glass-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    background: rgba(67, 97, 238, 0.05); /* Легкий оттенок твоей переменной */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+}
+
+/* Настройка для темной темы */
+[data-theme="dark"] .tg-glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.tg-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.tg-icon-float {
+    font-size: 4rem;
+    color: var(--calm-blue);
+    animation: floatAnim 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(67, 97, 238, 0.4));
+}
+
+.tg-text-content h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.tg-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Кнопка с неоновым эффектом */
+.btn-tg-neon {
+    background: var(--gradient-calm);
+    color: white !important;
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+}
+
+.btn-tg-neon:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 20px 40px rgba(67, 97, 238, 0.6);
+}
+
+.tg-subtext {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+}
+
+/* Анимации и декор */
+.tg-blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: var(--calm-green);
+    filter: blur(80px);
+    opacity: 0.2;
+    top: -50px;
+    right: -20px;
+    z-index: -1;
+}
+
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* Мобильная версия */
+@media (max-width: 992px) {
+    .tg-glass-panel {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .tg-info {
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+}
