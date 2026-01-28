@@ -1108,3 +1108,568 @@ html, body {
         letter-spacing: 1px !important;
     }
 }
+
+/* ============ ВСПЛЫВАЮЩИЙ ТОПИК (POPUP) ============ */
+
+/* Затемненный фон */
+.topic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px); /* Размытие фона сайта */
+    z-index: 10000;
+    display: none; /* Скрыто */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.topic-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Само окно */
+.topic-content {
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh;
+    background: var(--calm-white);
+    border-radius: 20px;
+    position: relative;
+    overflow-y: auto; /* Прокрутка внутри окна */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.topic-overlay.active .topic-content {
+    transform: scale(1);
+}
+
+/* Кнопка закрытия (крестик) */
+.topic-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+    color: var(--calm-dark);
+}
+
+.topic-close:hover {
+    background: var(--calm-warning);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* Заголовок */
+.topic-header {
+    background: linear-gradient(135deg, var(--calm-blue), #3a0ca3);
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.topic-header h2 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Тело контента */
+.topic-body {
+    padding: 40px;
+}
+
+/* Карточки разделов */
+.topic-card {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+    align-items: center;
+}
+
+.topic-card.reverse {
+    flex-direction: row-reverse; /* Картинка справа */
+}
+
+.card-img {
+    flex: 1;
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-text {
+    flex: 1;
+}
+
+.card-text h3 {
+    font-size: 1.8rem;
+    color: var(--calm-blue);
+    margin-bottom: 15px;
+}
+
+/* Списки и блоки */
+.check-list li {
+    list-style: none;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.check-list li::before {
+    content: "✓";
+    color: var(--calm-green);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.check-list span {
+    font-weight: bold;
+    color: var(--calm-dark);
+}
+
+.info-box {
+    background: rgba(67, 97, 238, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--calm-blue);
+    color: var(--calm-dark);
+}
+
+.mistake-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.mistake {
+    background: var(--calm-light);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.mistake strong {
+    color: var(--calm-warning);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.topic-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Адаптив для телефонов */
+@media (max-width: 768px) {
+    .topic-card, .topic-card.reverse {
+        flex-direction: column;
+    }
+    .topic-content {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
+    .mistake-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ТЕМНАЯ ТЕМА */
+[data-theme="dark"] .topic-content {
+    background: #1a1c1e;
+    color: #e9ecef;
+}
+[data-theme="dark"] .check-list span {
+    color: #fff;
+}
+[data-theme="dark"] .mistake {
+    background: #2c2c2c;
+}
+[data-theme="dark"] .info-box {
+    color: #e9ecef;
+    background: rgba(67, 97, 238, 0.2);
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    color: var(--calm-dark);
+}
+
+.mistake-detailed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.mistake-card {
+    padding: 25px;
+    border-radius: 15px;
+    background: var(--calm-light);
+    border-top: 5px solid #ccc;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.mistake-card:hover {
+    transform: translateY(-5px);
+}
+
+.mistake-card h4 {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mistake-card.danger { border-color: #f72585; }
+.mistake-card.warning { border-color: #ff9f1c; }
+.mistake-card.info { border-color: #4361ee; }
+
+.final-quote {
+    font-style: italic;
+    color: var(--calm-gray);
+    margin: 40px 0 20px;
+    font-size: 1.1rem;
+}
+
+/* Списки в тексте */
+.check-list li {
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+/* Темная тема */
+[data-theme="dark"] .mistake-card {
+    background: #252525;
+}
+[data-theme="dark"] .section-title {
+    color: #fff;
+}
+/* ОБНОВЛЕННЫЙ ДИЗАЙН ТОПИКА */
+
+/* Шапка с картинкой или градиентом */
+.topic-header-v2 {
+    height: 250px;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 20px 20px 0 0;
+}
+
+.header-overlay .badge {
+    background: var(--calm-warning);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-overlay h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+    font-family: 'Exo 2', sans-serif;
+}
+
+/* Заголовки секций */
+.section-title-v2 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0 25px;
+    font-size: 1.5rem;
+}
+
+.section-title-v2 span {
+    background: var(--calm-blue);
+    color: white;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+/* Иконки экипировки */
+.gear-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gear-item {
+    background: rgba(67, 97, 238, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.gear-item i {
+    font-size: 2rem;
+    color: var(--calm-blue);
+    margin-bottom: 10px;
+}
+
+/* PRO-Блоки */
+.pro-block {
+    display: flex;
+    gap: 20px;
+    background: #f0f7ff;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid var(--calm-blue);
+}
+
+.pro-tip {
+    background: #fffbe6;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: 1px dashed #ffe58f;
+    font-size: 0.95rem;
+}
+
+/* Карточки ошибок */
+.mistake-cards-v2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.m-card-v2 {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.m-num {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 4rem;
+    font-weight: 900;
+    opacity: 0.05;
+}
+
+/* Кнопка с эффектом сияния */
+.btn-shine {
+    background: var(--gradient-calm);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+    transition: 0.3s;
+}
+
+.btn-shine:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(67, 97, 238, 0.4);
+}
+
+/* ТЕМНАЯ ТЕМА */
+[data-theme="dark"] .m-card-v2 { background: #252525; color: white; }
+[data-theme="dark"] .pro-block { background: #1e293b; color: white; }
+[data-theme="dark"] .gear-item { background: #2c2c2c; }
+
+/* ИСПРАВЛЕНИЕ СКРОЛЛА И ДИЗАЙН */
+
+.topic-overlay {
+    overflow-y: auto; /* Позволяем оверлею скроллиться, если контент большой */
+    padding: 40px 20px;
+}
+
+.topic-content {
+    height: auto; /* Контент подстраивается под высоту текста */
+    max-height: none; 
+    overflow: visible; /* Убираем внутренний скролл, скроллим весь оверлей */
+    background: var(--calm-white);
+    border-radius: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Стилизация скроллбара (для Chrome/Safari) */
+.topic-overlay::-webkit-scrollbar {
+    width: 8px;
+}
+.topic-overlay::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+.topic-overlay::-webkit-scrollbar-thumb {
+    background: var(--calm-blue);
+    border-radius: 10px;
+}
+
+/* ШАПКА ГЕРОЙ */
+.topic-hero {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 80px 40px;
+    color: white;
+    text-align: center;
+    border-radius: 30px 30px 0 0;
+    position: relative;
+}
+
+.topic-hero h1 span {
+    color: var(--calm-blue);
+    text-transform: uppercase;
+}
+
+.hero-badge {
+    background: var(--calm-warning);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* КАРТОЧКИ И КОНТЕНТ */
+.topic-inner-body {
+    padding: 40px;
+    background: #fdfdfd;
+}
+
+.glass-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    margin-bottom: 40px;
+    border: 1px solid #f0f0f0;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--calm-blue);
+}
+
+.section-num {
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(67, 97, 238, 0.1);
+    line-height: 1;
+    margin-bottom: -30px;
+}
+
+.gear-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.gear-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.gear-box:hover {
+    border-color: var(--calm-blue);
+    transform: translateY(-5px);
+}
+
+.gear-box i {
+    font-size: 2.5rem;
+    color: var(--calm-blue);
+    margin-bottom: 15px;
+}
+
+/* ОШИБКИ */
+.mistake-item-v3 {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.m-icon {
+    width: 50px;
+    height: 50px;
+    background: #fff0f6;
+    color: var(--calm-warning);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}
+
+/* КНОПКА ЗАКРЫТИЯ */
+.btn-modern-close {
+    width: 100%;
+    padding: 20px;
+    background: var(--calm-blue);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-modern-close:hover {
+    background: #3350d1;
+    gap: 25px;
+}
+
+/* ФИКС ТЕМНОЙ ТЕМЫ */
+[data-theme="dark"] .topic-content { background: #1a1c1e; }
+[data-theme="dark"] .topic-inner-body { background: #1a1c1e; }
+[data-theme="dark"] .gear-box, [data-theme="dark"] .glass-card { 
+    background: #252525; 
+    border-color: #333;
+}
+[data-theme="dark"] .topic-inner-body h3, [data-theme="dark"] .card-info h3 {
+    color: white;
+}
