@@ -279,3 +279,147 @@ if (!document.querySelector('#dark-theme-styles')) {
     
     safeLog('Стили тёмной темы добавлены');
 }
+// ========== ЛОГИКА ОКНА БЕЗОПАСНОСТИ ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const safetyBtn = document.getElementById('safetyBtn');
+    const safetyTopic = document.getElementById('safetyTopic');
+    const closeTopicBtn = document.getElementById('closeTopicBtn');
+
+    // Функция открытия
+    if (safetyBtn && safetyTopic) {
+        safetyBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Чтобы не кидало вверх страницы
+            safetyTopic.style.display = 'flex';
+            
+            // Небольшая задержка для плавного появления
+            setTimeout(() => {
+                safetyTopic.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Блокируем прокрутку сайта
+            }, 10);
+        });
+    }
+
+    // Функция закрытия
+    function closeSafetyTopic() {
+        if (safetyTopic) {
+            safetyTopic.classList.remove('active');
+            setTimeout(() => {
+                safetyTopic.style.display = 'none';
+                document.body.style.overflow = ''; // Возвращаем прокрутку
+            }, 400); // Ждем окончания анимации
+        }
+    }
+
+    // Закрытие по кнопке
+    if (closeTopicBtn) {
+        closeTopicBtn.addEventListener('click', closeSafetyTopic);
+    }
+
+    // Закрытие кликом по темному фону
+    if (safetyTopic) {
+        safetyTopic.addEventListener('click', (e) => {
+            if (e.target === safetyTopic) {
+                closeSafetyTopic();
+            }
+        });
+    }
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && safetyTopic && safetyTopic.classList.contains('active')) {
+            closeSafetyTopic();
+        }
+    });
+});
+
+// ========== ЛОГИКА ОКНА БЕЗОПАСНОСТИ (ОБНОВЛЕННАЯ) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const safetyBtn = document.getElementById('safetyBtn');
+    const safetyTopic = document.getElementById('safetyTopic');
+    const closeTopicBtn = document.getElementById('closeTopicBtn');
+
+    if (safetyBtn && safetyTopic) {
+        // 1. Клик по кнопке "Узнать больше"
+        safetyBtn.onclick = function(e) {
+            e.preventDefault(); // Останавливаем прыжок страницы
+            e.stopPropagation();
+	    // Добавь это внутрь обработчика safetyBtn.onclick
+            const cards = safetyTopic.querySelectorAll('.m-card-v2, .gear-item');
+            cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+            card.style.transition = '0.5s ease-out';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            }, 400 + (index * 100)); // Карточки появятся одна за другой
+});
+            
+            safetyTopic.style.display = 'flex'; // Показываем блок
+            
+            // Плавное появление через микро-задержку
+            setTimeout(() => {
+                safetyTopic.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Запрещаем скролл сайта
+            }, 10);
+        };
+    }
+
+    // 2. Функция закрытия
+    function closeSafety() {
+        if (safetyTopic) {
+            safetyTopic.classList.remove('active');
+            setTimeout(() => {
+                safetyTopic.style.display = 'none';
+                document.body.style.overflow = ''; // Возвращаем скролл
+            }, 400);
+        }
+    }
+
+    // Привязываем закрытие к кнопке-крестику
+    if (closeTopicBtn) {
+        closeTopicBtn.onclick = closeSafety;
+    }
+
+    // Закрытие при клике на темный фон
+    window.onclick = function(event) {
+        if (event.target == safetyTopic) {
+            closeSafety();
+        }
+    };
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const safetyBtn = document.getElementById('safetyBtn');
+    const safetyTopic = document.getElementById('safetyTopic');
+    const closeTopicBtn = document.getElementById('closeTopicBtn');
+
+    if (safetyBtn && safetyTopic) {
+        console.log("Кнопка и окно найдены, всё готово к работе!"); // Это появится в консоли
+
+        safetyBtn.addEventListener('click', (e) => {
+            console.log("Нажали на кнопку 'Узнать больше'");
+            e.preventDefault();
+            safetyTopic.style.display = 'flex';
+            setTimeout(() => {
+                safetyTopic.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        });
+    } else {
+        console.log("Ошибка: Кнопка или Окно не найдены в HTML!");
+    }
+
+    function closeSafety() {
+        safetyTopic.classList.remove('active');
+        setTimeout(() => {
+            safetyTopic.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 400);
+    }
+
+    if (closeTopicBtn) closeTopicBtn.addEventListener('click', closeSafety);
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === safetyTopic) closeSafety();
+    });
+});
