@@ -850,3 +850,82 @@ html[data-theme="light"] body #emergency p {
         margin-bottom: 30px;
     }
 }
+
+/* Контейнер переключателя */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 30px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none; /* Скрываем стандартный чекбокс */
+}
+
+/* Фон переключателя */
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+/* Кругляшок (ползунок) */
+.slider:before {
+    background-color: white;
+    bottom: 4px;
+    content: "";
+    height: 22px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 22px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Цвета при переключении */
+input:checked + .slider {
+    background-color: var(--calm-blue); /* Твой основной синий цвет */
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+/* Иконки внутри ползунка */
+.icon-sun {
+    color: #f39c12;
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.icon-moon {
+    color: #f1c40f;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+/* Эффект свечения при наведении */
+.theme-switch:hover .slider {
+    box-shadow: 0 0 8px rgba(67, 97, 238, 0.3);
+}
