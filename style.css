@@ -1052,3 +1052,59 @@ input:checked + .slider:before {
     align-items: center;
     margin: 0; /* Убираем лишние отступы, которые могут сбивать центровку */
 }
+/* Общие настройки для предотвращения вылета за края экрана */
+html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+
+* {
+    max-width: 100%; /* Гарантирует, что ни один блок не будет шире экрана */
+}
+@media (max-width: 768px) {
+    /* Контейнер навигации делаем компактным */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+    }
+
+    /* Прячем текстовое меню (оно должно открываться по клику на бургер) */
+    .nav-menu {
+        display: none; /* Скрываем до нажатия на меню */
+    }
+
+    /* Оставляем кнопку Telegram и ползунок в ряд */
+    .nav-right {
+        gap: 10px;
+        margin-right: 40px; /* Место для кнопки бургер-меню */
+    }
+
+    /* Уменьшаем кнопку Telegram, чтобы влезла */
+    .btn-telegram {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .btn-telegram span {
+        display: none; /* Скрываем текст "Наш канал", оставляем только иконку */
+    }
+
+    /* Центрируем и выравниваем ползунок */
+    .ThemeToggle {
+        transform: scale(0.8); /* Немного уменьшаем ползунок для мобилок */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 1.1rem !important; /* Еще чуть меньше на очень маленьких экранах */
+    }
+    
+    .logo-sub {
+        font-size: 0.5rem !important;
+        letter-spacing: 1px !important;
+    }
+}
