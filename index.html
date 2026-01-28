@@ -35,12 +35,13 @@
                 </a>
             </div>
             <!-- Добавляем переключатель темы -->
-<div class="theme-switcher">
-    <input type="checkbox" id="themeToggle" class="theme-checkbox">
-    <label for="themeToggle" class="theme-label" title="Переключить тему">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-        <span class="theme-ball"></span>
+<div class="theme-switch-wrapper">
+    <label class="theme-switch" for="themeToggle">
+        <input type="checkbox" id="themeToggle" />
+        <div class="slider round">
+            <i class="fas fa-sun icon-sun"></i>
+            <i class="fas fa-moon icon-moon"></i>
+        </div>
     </label>
 </div>
             <button class="menu-toggle" id="menuToggle">
@@ -220,7 +221,6 @@
             <div class="tg-blob"></div>
         </div>
     	</div>
-    /section>
 
     <!-- Футер -->
     <footer class="footer">
