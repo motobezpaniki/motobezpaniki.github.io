@@ -13,32 +13,25 @@ function safeLog(message) {
 function initTheme() {
     try {
         const savedTheme = localStorage.getItem('motobezpaniki-theme');
-        safeLog('Тема из хранилища:', savedTheme);
         
-        // Определяем тему по умолчанию
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        safeLog('Системная тема:', prefersDark ? 'тёмная' : 'светлая');
+        // ЛОГИКА: Если тема сохранена — берем её. Если нет — ВСЕГДА ставим 'dark'.
+        let themeToApply = savedTheme ? savedTheme : 'dark';
         
-        let themeToApply = 'light';
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            themeToApply = 'dark';
-        }
-        
-        // Применяем тему
+        // Применяем тему к тегу <html>
         document.documentElement.setAttribute('data-theme', themeToApply);
+        
+        // Синхронизируем состояние ползунка (чекбокса)
         const toggle = document.getElementById('themeToggle');
         if (toggle) {
-            toggle.checked = themeToApply === 'dark';
+            toggle.checked = (themeToApply === 'dark');
         }
         
-        safeLog('Применена тема:', themeToApply);
+        safeLog('Применена тема по умолчанию:', themeToApply);
     } catch (error) {
-        safeLog('Ошибка инициализации темы:', error.message);
-        // При ошибке ставим светлую тему по умолчанию
-        document.documentElement.setAttribute('data-theme', 'light');
+        safeLog('Ошибка темы:', error.message);
+        document.documentElement.setAttribute('data-theme', 'dark');
     }
 }
-
 // Настройка переключателя
 function setupThemeToggle() {
     try {
