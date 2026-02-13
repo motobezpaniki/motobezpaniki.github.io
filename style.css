@@ -405,7 +405,7 @@ html[data-theme="light"] body {
 }
 
 .tool-icons i:nth-child(2) {
-    color: var(--calm-warning);
+    color: var(--calm-white);
     transform: rotate(20deg);
 }
 
@@ -1552,7 +1552,7 @@ html, body {
 }
 
 .hero-badge {
-    background: var(--calm-warning);
+    background: var(--calm-white);
     padding: 4px 12px;
     border-radius: 6px;
     font-size: 0.7rem;
